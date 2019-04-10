@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--全局setting配置，根据需要添加-->
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+
+        <!-- 开启驼峰命名转换:Table{create_time} -> Entity{createTime} -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+    </settings>
+    <!--配置别名,也可以在spring和mybatis整合的文件里面配-->
+    <typeAliases>
+        <!--指定实体类的包名，mybatis会自动识别扫描，别名就是实体类的类名（大小写均可）-->
+        <package name="cn.ssmshop.po"/>
+    </typeAliases>
+
+</configuration>

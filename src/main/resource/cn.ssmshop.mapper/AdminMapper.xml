@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ssmshop.mapper.AdminMapper">
+
+    <!--定义查询用的代码片段,一般不加where-->
+    <sql id="query_where">
+        <if test="admin!=null">
+            admin.status = #{admin.status}
+            <if test="admin.aid!=null and admin.aid!=''">
+                and admin.aid = #{admin.aid}
+            </if>
+            <if test="admin.username!=null and admin.username!=''">
+                and admin.username = #{admin.username}
+            </if>
+            <if test="admin.password!=null and admin.password!=''">
+                and admin.password = #{admin.password}
+            </if>
+        </if>
+    </sql>
+
+
+    <select id="findAdmin" parameterType="Admin" resultType="Admin">
+        select * from admin
+        <where>
+            <include refid="query_where"/>
+        </where>
+    </select>
+</mapper>

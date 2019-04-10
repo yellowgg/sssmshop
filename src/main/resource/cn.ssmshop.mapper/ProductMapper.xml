@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ssmshop.mapper.ProductMapper">
+
+
+    <select id="getTotalRecord" parameterType="string" resultType="int">
+        select count(*) from product where ptid = #{ptid}
+    </select>
+
+    <select id="findAll" resultType="Product">
+        select * from product
+    </select>
+
+    <select id="findNew" resultType="Product">
+        select * from product order by pdate desc limit 9
+    </select>
+
+    <select id="findHot" resultType="Product">
+        select * from product where pstatus = '1' order by pdate desc limit 9
+    </select>
+
+    <select id="findProById" parameterType="Product" resultType="Product">
+        select * from product where pid = #{pid}
+    </select>
+
+    <select id="findPage" resultType="Product">
+        select * from product where ptid = #{ptid} order by pdate limit
+        #{startIndex},#{pageSize}
+    </select>
+
+    <insert id="addProduct" parameterType="Product">
+    insert into product (pid, pname, ptid, 
+      pimg, pprice, pstatus, 
+      pcount, pdate, pdetailed
+      )
+    values (#{pid,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, #{ptid,jdbcType=VARCHAR}, 
+      #{pimg,jdbcType=VARCHAR}, #{pprice,jdbcType=DECIMAL}, #{pstatus,jdbcType=VARCHAR}, 
+      #{pcount,jdbcType=INTEGER}, #{pdate,jdbcType=TIMESTAMP}, #{pdetailed,jdbcType=LONGVARCHAR}
+      )
+    </insert>
+
+    <delete id="deleteById" parameterType="Product">
+      delete from product where pid=#{pid}
+    </delete>
+
+    <update id="update" parameterType="Product">
+        update product
+        <set>
+            <if test="pname != null">pname=#{pname},</if>
+            <if test="pprice != null">pprice=#{pprice},</if>
+            <if test="pstatus != null">pstatus = #{pstatus}</if>
+        </set>
+        where pid=#{pid}
+    </update>
+</mapper>

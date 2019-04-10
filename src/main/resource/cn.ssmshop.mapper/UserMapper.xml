@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ssmshop.mapper.UserMapper">
+
+    <select id="findAll" resultType="User">
+         select * from user
+    </select>
+
+    <select id="findByCode" parameterType="string" resultType="User">
+        select * from user where code = #{code} limit 1
+    </select>
+
+    <select id="findUser" parameterType="User" resultType="User">
+    select * from user where username = #{user.username} and password =
+    #{user.password}
+    </select>
+
+    <insert id="addUser" parameterType="User">
+    insert into user (uid, username, password,
+      name, email, tel, birth,
+      sex, state, code)
+    values (#{uid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{birth,jdbcType=DATE},
+      #{sex,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="User">
+      update user
+      set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=DATE},
+      sex = #{sex,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR}
+      where uid = #{uid,jdbcType=VARCHAR}
+    </update>
+</mapper>

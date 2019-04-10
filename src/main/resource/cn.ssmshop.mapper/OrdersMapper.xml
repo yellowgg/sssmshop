@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ssmshop.mapper.OrdersMapper">
+
+    <select id="findPage" resultType="Orders">
+        select * from orders where uid = #{uid} order by otime limit
+        #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getTotalRecord" parameterType="string" resultType="int">
+        select count(*) from orders where uid = #{uid}
+    </select>
+
+    <select id="findOrderByOid" parameterType="string" resultType="Orders">
+      select * from orders where oid = #{oid}
+    </select>
+
+    <select id="findOrderAll" resultType="Orders">
+        select * from orders
+    </select>
+
+    <select id="findOdByStatus" parameterType="string" resultType="Orders">
+        select * from orders where ostatus = #{status}
+    </select>
+
+    <insert id="save" parameterType="Orders">
+        insert into orders values
+        (#{oid},#{uid},#{otime},#{ototal},#{ostatus},#{receiver},#{tel},#{addr})
+    </insert>
+
+    <update id="update" parameterType="Orders">
+        update orders
+        <set>
+            <if test="ototal != null">ototal = #{ototal},</if>
+            <if test="ostatus != null">ostatus = #{ostatus},</if>
+            <if test="receiver != null">receiver = #{receiver},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="addr != null">addr = #{addr}</if>
+        </set>
+        where oid = #{oid}
+    </update>
+</mapper>

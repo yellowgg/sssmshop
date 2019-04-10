@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ssmshop.mapper.ProTypeMapper">
+
+    <select id="findAll" resultType="ProType">
+        select * from protype
+    </select>
+
+    <select id="findByStatus" resultType="ProType">
+        select * from protype where ptstatus = '1'
+    </select>
+
+    <select id="findPtById" parameterType="ProType" resultType="ProType">
+        select * from protype where ptid = #{protype.ptid}
+    </select>
+
+
+    <insert id="addType" parameterType="ProType">
+    insert into protype (ptid, ptname, ptstatus
+      )
+    values (#{ptid,jdbcType=VARCHAR}, #{ptname,jdbcType=VARCHAR},
+    #{ptstatus,jdbcType=VARCHAR}
+      )
+    </insert>
+
+    <update id="update" parameterType="ProType">
+        update protype
+        <set>
+            <if test="ptname != null">ptname=#{ptname},</if>
+            <if test="ptstatus != null">ptstatus = #{ptstatus}</if>
+        </set>
+        where ptid=#{ptid}
+    </update>
+
+    <delete id="deleteById" parameterType="ProType">
+        delete from protype where ptid=#{ptid}
+    </delete>
+</mapper>
