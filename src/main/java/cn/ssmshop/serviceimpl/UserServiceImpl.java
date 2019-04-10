@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         //发送邮件告知
         String emailMsg =
                 "恭喜" + user.getName() +
-                        ":成为我们商城的一员，<a href='http://localhost:8080" +
+                        ":成为我们商城的一员，<a href='http://yellowgg.cn:8080" +
                         "/sssmshop/user" +
                         "/active/"
                         + user.getCode() +
