@@ -80,7 +80,9 @@
                                          width="70" height="60">
                                 </td>
                                 <td width="30%">
-                                    <a target="_blank"> ${pro[loop.count-1].pname}</a>
+                                    <a href="${pageContext.request.contextPath}/product/findProduct/${pro[loop.count-1].pid}"
+                                       target="_blank">
+                                            ${pro[loop.count-1].pname}</a>
                                 </td>
                                 <td width="20%">
                                     ￥ ${pro[loop.count-1].pprice}
