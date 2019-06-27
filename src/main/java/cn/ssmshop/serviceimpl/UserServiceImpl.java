@@ -47,7 +47,8 @@ public class UserServiceImpl implements UserService {
                         "/active/"
                         + user.getCode() +
                         "'>点此激活</a>";
-        MailUtils.sendMail(user.getEmail(), emailMsg);
+        //如果是线上版本，记得使用sendEmail这个方法
+        MailUtils.sendEmail(user.getEmail(), emailMsg);
     }
 
     /**
