@@ -19,7 +19,7 @@ public class MailUtils {
     /**
      * 此处是腾讯邮箱的授权码，而不是明文密码（qq密码）;
      */
-    private static String shouquanma = "vvfxnszmqieqfgab";
+    private static String shouquanma = "用你自己的IMAP/SMTP授权码";
 
     /**
      * 这是使用25端口发送的，在本地可用，然而放服务器就会被禁掉
