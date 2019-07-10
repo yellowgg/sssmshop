@@ -59,9 +59,9 @@ public class MailUtils {
         // 多个收件人
         message.setRecipients(RecipientType.TO, InternetAddress.parse(email));
         // 抄送人
-        message.setRecipient(RecipientType.CC, new InternetAddress(email));
+        // message.setRecipient(RecipientType.CC, new InternetAddress(email));
         // 暗送人
-        message.setRecipient(RecipientType.BCC, new InternetAddress(email));
+        // message.setRecipient(RecipientType.BCC, new InternetAddress(email));
         // HTML内容
         message.setContent(emailMsg, "text/html;charset=utf-8");
 
@@ -103,8 +103,8 @@ public class MailUtils {
         msg.setFrom(new InternetAddress(userName));
         //设置收件人,to为收件人,cc为抄送,bcc为密送
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-        msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(email, false));
-        msg.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(email, false));
+        // msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(email, false));
+        // msg.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(email, false));
         //修改邮件编码
         String subject = "守望商城用户激活邮件";
         String encodingSubject = MimeUtility.encodeText(subject, MimeUtility.mimeCharset("gb2312"), null);
