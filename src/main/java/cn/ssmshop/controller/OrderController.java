@@ -63,7 +63,18 @@ public class OrderController {
         //获取订单项，因为获取出来的订单里面的orderItem<List>是没有东西的，
         //直接获取所有的订单项就行了，不用分别按订单号去获取，因为两者最终都是获取完所有的订单项
         //到时在前端判断订单项的订单号与相应的订单编号对应即可
-        List<OrderItem> oiList = orderService.findOrderItemsAll();
+        // List<OrderItem> oiList = orderService.findOrderItemsAll();
+
+
+        //上面的写法的目的是为了获取所有的订单，也没错，只不过还需要再次访问数据库，
+        //而下面是因为使用resultMap之后，Order类的List<OrderItem>已经有东西了，以前没有
+        //所以直接从List那里再拿过这里就可以了  不用去访问数据库了
+        List<OrderItem> oiList = new ArrayList<>();
+        // 遍历每个订单
+        for (Orders orders : bean.getData()) {
+            //将每个订单的List<OrderItem>放到我们需要的oiList
+            oiList.addAll(orders.getItems());
+        }
 
         //订单项对应的商品
         List<Product> list = getProFromOi(oiList);

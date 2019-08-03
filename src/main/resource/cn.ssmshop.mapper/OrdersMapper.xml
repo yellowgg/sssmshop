@@ -3,9 +3,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ssmshop.mapper.OrdersMapper">
 
-    <select id="findPage" resultType="Orders">
-        select * from orders where uid = #{uid} order by otime limit
-        #{startIndex},#{pageSize}
+    <!--初次意识到resultMap是用来给一个类中的非基本属性赋值的，比如一个对象，一个list-->
+    <resultMap id="OrderAndOrderItemResultMap" type="Orders">
+        <id column="oid" property="oid"/>
+        <result column="uid" property="uid"/>
+        <result column="otime" property="otime"/>
+        <result column="ototal" property="ototal"/>
+        <result column="ostatus" property="ostatus"/>
+        <result column="receiver" property="receiver"/>
+        <result column="tel" property="tel"/>
+        <result column="addr" property="addr"/>
+        <!--order下有个orderItem集合-->
+        <collection property="items" ofType="OrderItem">
+            <id column="itemid" property="itemid"/>
+            <result column="oid" property="oid"/>
+            <result column="count" property="count"/>
+            <result column="pid" property="pid"/>
+            <result column="total" property="total"/>
+        </collection>
+    </resultMap>
+
+    <!--    <select id="findPage" resultType="Orders">-->
+    <!--        select * from orders where uid = #{uid} order by otime limit-->
+    <!--        #{startIndex},#{pageSize}-->
+    <!--    </select>-->
+    <select id="findPage" resultMap="OrderAndOrderItemResultMap">
+        select
+        o.oid,o.uid,o.otime,o.ototal,o.ostatus,o.receiver,o.tel,o.addr,
+        oi.itemid,oi.oid,oi.count,oi.pid,oi.total
+        from orders o
+        join orderitem oi
+        on o.oid = oi.oid
+        where o.uid = #{uid}
+        order by otime
+        limit #{startIndex},#{pageSize}
     </select>
 
     <select id="getTotalRecord" parameterType="string" resultType="int">
