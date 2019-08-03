@@ -96,7 +96,8 @@
 <script type="text/javascript">
     function subForm(pcount) {
         //先判断购买数量
-        var count = document.getElementById("quantity").value;
+        // 在js中 两个数字型字符串相比较会按一位一位的比较，所以解决方法是保证有一个是数字型
+        var count = parseInt(document.getElementById("quantity").value);
         if (count <= 0 || count > pcount) {
             alert("您购买的数量不正确，请重新输入，啾咪")
             return false;
