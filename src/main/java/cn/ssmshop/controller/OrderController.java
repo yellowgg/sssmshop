@@ -246,11 +246,11 @@ public class OrderController {
      */
     private List<Product> getProFromOi(List<OrderItem> oi) {
         List<Product> list = new ArrayList<>();
+        Product product = new Product();
         for (OrderItem o : oi) {
-            Product product = new Product();
             product.setPid(o.getPid());
-            Product proById = productService.findProById(product);
-            list.add(proById);
+            //根据id查商品
+            list.add(productService.findProById(product));
         }
         return list;
     }
