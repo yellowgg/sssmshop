@@ -74,6 +74,18 @@
                                    name="password">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="verifyCode"
+                               class="col-sm-2 control-label">验证码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                   id="verifyCode" placeholder="请输入验证码"
+                                   name="verifyCode">
+                        </div>
+                        <img src="${pageContext.request.contextPath}/user/getVerifyCode"
+                             style="margin-left:5px;margin-top: 5px" id="Img"
+                             onclick="changeCode();">
+                    </div>
                     <div>
                         <c:if test="${errorMsg!=null}">
                             <div align="center"
@@ -98,6 +110,17 @@
 <%@include file="/jsp/foot.jsp" %>
 
 <script type="text/javascript">
+    // 获取当前时间
+    function genTimestamp() {
+        var time = new Date();
+        return time.getTime();
+    }
+
+    // 点击获取验证码
+    function changeCode() {
+        $("#Img").attr("src", "${pageContext.request.contextPath}/user/getVerifyCode?t=" + genTimestamp());
+    }
+
     // 禁止为空
     function validate() {
         if (document.getElementById("username").value == "") {
@@ -107,6 +130,10 @@
         } else if (document.getElementById("password").value == "") {
             alert("密码不能为空");
             document.getElementById("password").focus();
+            return false;
+        } else if (document.getElementById("verifyCode").value == "") {
+            alert("验证码不能为空");
+            document.getElementById("verifyCode").focus();
             return false;
         }
         return true;
